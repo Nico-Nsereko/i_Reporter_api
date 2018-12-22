@@ -26,3 +26,7 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(res.status_code, 201)
         self.assertTrue('Created red-flag record' in str(res.data))
 
+    def test_getredflags(self):
+        res = self.tester.get('/api/v1/red-flags')
+        self.assertIn("data", str(res.data))
+        self.assertEqual(res.status_code, 200)

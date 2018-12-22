@@ -54,3 +54,11 @@ def create_redflag():
                 }]    
             }), 201
 
+@app.route('/api/v1/red-flags', methods=['GET'])
+def get_redflags():
+    if len(all_redflags)>0:
+        return jsonify({
+            'status': 200,
+            "data": [all_redflags] }), 200
+    return jsonify({"message": "No red flags detected"}), 400
+
