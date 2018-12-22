@@ -85,3 +85,14 @@ class TestApplication(unittest.TestCase):
         })
         self.assertTrue(res.status_code == 404)
         self.assertIn("t be empty",str(res.data))
+
+    def test_remove_redflag(self):
+        res = self.tester.delete('/api/v1/red-flags/1')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue('deleted' in str(res.data))
+
+    def test_redflag_not_deleted(self):
+        res = self.tester.delete('/api/v1/red-flags/2')
+        self.assertEqual(res.status_code, 400)
+        self.assertTrue('not available' in str(res.data))

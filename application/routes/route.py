@@ -103,3 +103,18 @@ def edit_comment(red_flag_id):
                 }]}),200
     return jsonify({'error': 'Red-flag not available'}),400 
 
+@app.route('/api/v1/red-flags/<int:red_flag_id>', methods=['DELETE'])
+def delete_red(red_flag_id):
+    for redflag in all_redflags:
+        if redflag['id'] == red_flag_id:
+            all_redflags.remove(redflag)
+            return jsonify(
+                {
+                    'status': 200,
+                    'data': [{'id':redflag['id'],
+                    'message':'Red-flag record has been deleted'
+                    }]
+                    }
+                ),200
+    return jsonify({'error': 'Red-flag not available'}),400 
+
