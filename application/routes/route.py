@@ -62,3 +62,13 @@ def get_redflags():
             "data": [all_redflags] }), 200
     return jsonify({"message": "No red flags detected"}), 400
 
+@app.route('/api/v1/red-flags/<int:red_flag_id>', methods=['GET'])
+def get_redflag(red_flag_id):
+    specific = []
+    for redflag in all_redflags:
+        if redflag['id'] == red_flag_id:
+            specific.append(redflag['id'])
+            return jsonify({
+                'status':redflag['id'],
+                'data': [redflag]}),200
+    return jsonify({'error': 'Red-flag not available'}),404  

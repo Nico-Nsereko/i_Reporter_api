@@ -30,3 +30,12 @@ class TestApplication(unittest.TestCase):
         res = self.tester.get('/api/v1/red-flags')
         self.assertIn("data", str(res.data))
         self.assertEqual(res.status_code, 200)
+
+    def test_getredflag(self):
+        res = self.tester.get('/api/v1/red-flags/1')
+        self.assertEqual(res.status_code, 200)
+
+    def test_redflag_not_found(self):
+        res = self.tester.get('/api/v1/red-flags/4')
+        self.assertTrue(res.status_code == 404)
+        self.assertTrue('Red-flag not available' in str(res.data))
