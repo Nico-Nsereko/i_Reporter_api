@@ -118,3 +118,4 @@ def delete_red(red_flag_id):
                 ),200
     return jsonify({'error': 'Red-flag not available'}),400 
 
+    return jsonify({'error': 'Red-flag not available'}),404  
