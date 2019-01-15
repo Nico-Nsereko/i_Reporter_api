@@ -1,0 +1,13 @@
+[report]
+omit =
+    */python?.?/*
+    */site-packages/*
+    */__pycache__/*
+    *.pyc
+    */venv/*
+    */home/travis/virtualenv/*
+    
+    */__init__.py
+	*/tests/*
+	*/application/models/model.py
+
