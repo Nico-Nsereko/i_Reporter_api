@@ -33,7 +33,7 @@ The front-end of the application is hosted on gh pages and can be accessed from 
 ### End points
  HTTP method|End point|functionality 
  -----------|---------|--------------
- GET|/api/v1|A welcome route to the application for users
+ GET|/|A welcome route to the application for users
  GET|/api/v1/red-flags/|Return all red-flags available
  GET|/api/v1/red-flags/<red_flag_id>|Used to get a specific red-flag record's details.
  POST|/api/v1/red-flags|Used to create a red-flag record
