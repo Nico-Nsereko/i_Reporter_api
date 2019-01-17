@@ -1,7 +1,7 @@
+from application import app
 import unittest
 import json
-from application.routes.route import app
-#from application.config import app
+
 
 class TestApplication(unittest.TestCase):
     def setUp(self):
