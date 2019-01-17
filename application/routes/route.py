@@ -1,23 +1,25 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 from application.models.model import Incident, User
 from application.validations.validations import validate_input, validate_comment, validate_location
+from application.routes.auth import token_required
 
-app = Flask(__name__)
 
 all_redflags= []
 
-@app.route('/',methods=['GET'])
+user_blueprint = Blueprint('user_blueprint', __name__)
+
+@user_blueprint.route('/',methods=['GET'])
 def home():
     return jsonify({'message':"Welcome to iReporter"}), 200
 
-@app.route('/api/v1/red-flags', methods=['GET'])
+@user_blueprint.route('/api/v1/red-flags', methods=['GET'])
 def get_redflags():
     return jsonify({
         'status': 200,
         "data": all_redflags }), 200
    
 
-@app.route('/api/v1/red-flags/<int:red_flag_id>', methods=['GET'])
+@user_blueprint.route('/api/v1/red-flags/<int:red_flag_id>', methods=['GET'])
 def get_redflag(red_flag_id):
     specific = []
     for redflag in all_redflags:
@@ -28,7 +30,7 @@ def get_redflag(red_flag_id):
                 'data': [redflag]}),200
     return jsonify({"status":400, 'error': 'Red-flag not available'}),404
 
-@app.route('/api/v1/red-flags', methods=['POST'])
+@user_blueprint.route('/api/v1/red-flags', methods=['POST'])
 def create_redflag():
     data_request = request.get_json()
     
@@ -60,7 +62,7 @@ def create_redflag():
                 "data": [{ 'id': myObject.getRecord()['id'], "message": "Created red-flag record" }]    
             }), 201
 
-@app.route('/api/v1/red-flags/<int:red_flag_id>/location', methods=['PATCH'])
+@user_blueprint.route('/api/v1/red-flags/<int:red_flag_id>/location', methods=['PATCH'])
 def edit_location(red_flag_id):
     for redflag in all_redflags:
         if redflag['id'] == red_flag_id:
@@ -73,7 +75,7 @@ def edit_location(red_flag_id):
                 'data': [{'id':redflag['id'], 'message':"Updated red-flag record's location" }] }),200
     return jsonify({'status':404, 'error': 'Red-flag not available'}),404
 
-@app.route('/api/v1/red-flags/<int:red_flag_id>/comment', methods=['PATCH'])
+@user_blueprint.route('/api/v1/red-flags/<int:red_flag_id>/comment', methods=['PATCH'])
 def edit_comment(red_flag_id):
     for redflag in all_redflags:
         if redflag['id'] == red_flag_id:
@@ -87,7 +89,7 @@ def edit_comment(red_flag_id):
                 'data': [{'id':redflag['id'], 'message':"Updated red-flag record's comment" }] }),200
     return jsonify({'status':404, 'error': 'Red-flag not available'}),404
 
-@app.route('/api/v1/red-flags/<int:red_flag_id>', methods=['DELETE'])
+@user_blueprint.route('/api/v1/red-flags/<int:red_flag_id>', methods=['DELETE'])
 def delete_red(red_flag_id):
     for redflag in all_redflags:
         if redflag['id'] == red_flag_id:
