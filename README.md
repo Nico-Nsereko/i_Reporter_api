@@ -48,7 +48,7 @@ The front-end of the application is hosted on gh pages and can be accessed from 
  
  ### Deployment
  
- The API is hosted on [Heroku](https://irreporter.herokuapp.com/api/v1)
+ The API is hosted on [Heroku](https://nicoireporter.herokuapp.com/)
  
  ### Built with 
  * python/ Flask
